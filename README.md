@@ -7,7 +7,8 @@ Using [Python API wrapper for Canvas](https://github.com/ucfopen/canvasapi) made
 - [ ] Experiment more with API
  
 ## Tokens
-
+1. Get your todoist token [here](https://todoist.com/prefs/integrations)
+2. Find your canvas token at settings and click new access token
 1. Create .env file
 2. Add your canvas and todoist tokens without "" like below
 
