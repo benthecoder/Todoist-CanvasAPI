@@ -28,33 +28,32 @@ def getCanvasAssignments():
     API_URL = "https://canvas.iastate.edu"
     canvas = Canvas(API_URL, getCanvasToken())
 
-    events = canvas.get_upcoming_events()
-    events_dict = {}
+    # # get course list
+    # courses = canvas.get_courses()
+    # for course in courses:
+    #     print(course)
+
+    course_dict = {79610: "STAT 341", 79615: "LIB 160", 79522: "ENGL 150", 80521: "COM S-227"}
+
+    events = canvas.get_todo_items()
+    todo_dict = {}
 
     for item in events:
-        if 'assignment' in item:
-            date = parser.parse(item['assignment']['due_at'])
+        course_id = item["course_id"]
+        course_name = course_dict[course_id]
+        title = item["assignment"]["name"]
+        url = item["assignment"]["html_url"]
 
-            formated_date = convertTimeZone(date)
+        date = parser.parse(item['assignment']['due_at'])
+        formated_date = convertTimeZone(date)
+        
+        if course_name not in todo_dict:
+            todo_dict[course_name] = [{"title": title, "date": formated_date, "url": url}]
+        else:
+            todo_dict[course_name].append({"title": title, "date": formated_date, "url": url})
 
-            title = item['title']
-
-            if formated_date in events_dict:
-                events_dict[formated_date].append(title)
-            else:
-                events_dict[formated_date] = [title]
-
-    return events_dict
-
-
-def list_courses():
-    API_URL = "https://canvas.iastate.edu"
-    canvas = Canvas(API_URL, getCanvasToken())
-
-    courses = canvas.get_courses()
-    for course in courses:
-        print(course)
-
+    # return dictionary
+    return todo_dict
 
 def convertTimeZone(date):
     """Converts TimeZone from UTC+0 to UTC+8"""
@@ -72,10 +71,11 @@ def convertTimeZone(date):
     return my_time
 
 
-def ToDoist():
+def addToTodoist():
     api = todoist.TodoistAPI(getTodoistToken())
     api.sync()
-    full_name = api.state['user']['full_name']
+    
+    items = api.state["items"]
     for project in api.state['projects']:
         print(project['name'])
 
@@ -85,5 +85,6 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
     # ToDoist()
+
