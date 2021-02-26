@@ -10,6 +10,8 @@ import pytz
 import os
 from dotenv import load_dotenv
 
+import yaml
+
 load_dotenv()
 
 
@@ -33,7 +35,7 @@ def getCanvasAssignments():
     # for course in courses:
     #     print(course)
 
-    course_dict = {79610: "STAT 341", 79615: "LIB 160", 79522: "ENGL 150", 80521: "COM S-227"}
+    course_dict = {79610: "STAT 341", 79615: "LD ST 322", 79522: "ENGL 150", 80521: "COM S-227"}
 
     events = canvas.get_todo_items()
     todo_dict = {}
@@ -81,10 +83,10 @@ def addToTodoist():
 
 
 def main():
-    print(getCanvasAssignments())
+    data = getCanvasAssignments()
+    print(yaml.dump(data, default_flow_style=False))
 
 
 if __name__ == '__main__':
-    # main()
+    main()
     # ToDoist()
-
