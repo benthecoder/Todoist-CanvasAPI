@@ -4,7 +4,7 @@ Using [Python API wrapper for Canvas](https://github.com/ucfopen/canvasapi) made
 ## Todo
 - [ ] Integrate to Todoist
 - [ ] Clean up Code
-- [ ] Experiment more with API
+- [ ] Experiment more with todoist API
  
 ## Tokens
 1. Get your todoist token [here](https://todoist.com/prefs/integrations)
